@@ -16,7 +16,7 @@ def __main__():
     inputs = [[0.3, 0.3], [0.7, 0.7]]
     inputs = [[x,y] for x,y in zip(gen.points[0], gen.points[1])]
     print("inputs:",inputs)
-    steps = 100
+    steps = 10
     net = WTA(num_neurons=4, num_inputs=2, numSteps=steps)
     for i in range(steps):
         errors = []
