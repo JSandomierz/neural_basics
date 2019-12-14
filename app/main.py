@@ -17,7 +17,7 @@ def __main__():
     inputs = [[x,y] for x,y in zip(gen.points[0], gen.points[1])]
     print("inputs:",inputs)
     steps = 10
-    net = WTA(num_neurons=4, num_inputs=2, numSteps=steps)
+    net = WTA(num_neurons=100, num_inputs=2, numSteps=steps)
     for i in range(steps):
         errors = []
         random.shuffle(inputs)

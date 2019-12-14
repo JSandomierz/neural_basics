@@ -6,7 +6,7 @@ from functools import reduce
 class WTA:
     weights = []
     biases = []
-    eta = 0.3
+    eta = 0.4
     deta = 0.98
 
     def __init__(self, num_neurons, num_inputs, numSteps):
@@ -18,7 +18,7 @@ class WTA:
     def activation(self, x):
         return 1 / (1 + math.exp(-x))
 
-    def train(self, input):
+    def train(self, input, updateRange):
         network_errors = 0
         for point in input:
             outputs = self.calculate(point)
@@ -27,10 +27,11 @@ class WTA:
             d = [np.sum(np.abs(x)) for x in d]
             #append indexes to d
             d = [(d[i], i) for i in range(len(d))]
-            #wta - only one best
             d = sorted(d, key=lambda x: x[0])
-            network_errors += d[0][0]
-            self.__adaptWeight(point, d[0][1])
+            #wtm
+            for i in range(3):
+                network_errors += d[i][0]
+                self.__adaptWeight(point, d[i][1], i)
         self.eta -= self.deta
         return network_errors
 
@@ -39,6 +40,7 @@ class WTA:
         outputs = [self.activation(x) for x in weighted_input]
         return outputs
 
-    def __adaptWeight(self, correct, neuron_index):
+    def __adaptWeight(self, correct, neuron_index, place):
         current_neuron = self.weights[neuron_index]
-        self.weights[neuron_index] = list(np.add(current_neuron, np.multiply(self.eta, np.subtract(correct, current_neuron))))
+        print('place:',place)
+        self.weights[neuron_index] = list(np.add(current_neuron, np.divide(np.multiply(self.eta, np.subtract(correct, current_neuron)), place+2)))
