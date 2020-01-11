@@ -1,5 +1,5 @@
 
-from app.wta import WTM
+from app.wta import WTA
 from app.gen import Gen
 import app.plot as plt
 
@@ -17,7 +17,7 @@ def __main__():
     inputs = [[x,y] for x,y in zip(gen.points[0], gen.points[1])]
     print("inputs:",inputs)
     steps = 50
-    net = WTM(num_neurons=20, num_inputs=2, numSteps=steps)
+    net = WTA(num_neurons=20, num_inputs=2, numSteps=steps)
     for i in range(steps):
         errors = []
         random.shuffle(inputs)
